@@ -1,6 +1,12 @@
 import React, { useRef } from "react";
 import emailjs from "emailjs-com";
-import { FaLinkedin, FaGithub, FaEnvelope, FaPhone } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 export default function App() {
   return (
@@ -22,34 +28,63 @@ export default function App() {
 }
 
 function Navbar() {
+  const [open, setOpen] = React.useState(false);
+
   return (
     <header className="fixed top-0 w-full bg-gray-950/80 backdrop-blur z-50">
       <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
         <h1 className="text-xl font-bold text-white">Anil Kumar</h1>
-        <nav className="space-x-6 text-sm">
-          <a href="#home" className="hover:text-indigo-400">
-            Home
-          </a>
-          <a href="#about" className="hover:text-indigo-400">
-            About
-          </a>
-          <a href="#education" className="hover:text-indigo-400">
-            Education
-          </a>
-          <a href="#skills" className="hover:text-indigo-400">
-            Skills
-          </a>
-          <a href="#certifications" className="hover:text-indigo-400">
-            Certificates
-          </a>
-          <a href="#projects" className="hover:text-indigo-400">
-            Projects
-          </a>
-          <a href="#contact" className="hover:text-indigo-400">
-            Contact
-          </a>
+
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex space-x-6 text-sm">
+          {[
+            "home",
+            "about",
+            "education",
+            "skills",
+            "certifications",
+            "projects",
+            "contact",
+          ].map((link) => (
+            <a
+              key={link}
+              href={`#${link}`}
+              className="hover:text-indigo-400 capitalize"
+            >
+              {link}
+            </a>
+          ))}
         </nav>
+
+        {/* Mobile Button */}
+        <button className="md:hidden text-2xl" onClick={() => setOpen(!open)}>
+          ☰
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      {open && (
+        <div className="md:hidden bg-gray-900 px-6 pb-4 space-y-3">
+          {[
+            "home",
+            "about",
+            "education",
+            "skills",
+            "certifications",
+            "projects",
+            "contact",
+          ].map((link) => (
+            <a
+              key={link}
+              href={`#${link}`}
+              className="block hover:text-indigo-400 capitalize"
+              onClick={() => setOpen(false)}
+            >
+              {link}
+            </a>
+          ))}
+        </div>
+      )}
     </header>
   );
 }
@@ -84,11 +119,11 @@ function Hero() {
       <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl">
         {/* Left Content */}
         <div>
-          <h2 className="text-4xl md:text-6xl font-bold mb-4">
+          <h2 className="text-4xl sm:text-4xl md:text-6xl font-bold mb-4">
             Hi, I'm <span className="text-indigo-400">Anil Kumar</span>
           </h2>
 
-          <h3 className="text-2xl md:text-3xl font-semibold text-gray-300 mb-6">
+          <h3 className="text-2xl sm:text-2xl md:text-3xl font-semibold text-gray-300 mb-6">
             I'm{" "}
             <span className="text-indigo-400 animate-pulse">
               {roles[index]}
@@ -152,7 +187,7 @@ function Hero() {
           <img
             src="https://res.cloudinary.com/dxwbrko3k/image/upload/v1766036143/Monu_01_pqmlez.jpg"
             alt="Anil Kumar"
-            className="w-72 h-72 object-cover rounded-full border-4 border-indigo-500"
+            className="w-48 h-48 md:w-72 md:h-72 object-cover rounded-full border-4 border-indigo-500"
           />
         </div>
       </div>
@@ -315,11 +350,41 @@ function Education() {
 function Achievements() {
   return (
     <section className="py-24 max-w-5xl mx-auto px-6">
-      <h3 className="text-3xl font-bold mb-6">Achievements</h3>
-      <ul className="space-y-4 text-gray-400">
-        <li>✔ Built multiple real-world React projects</li>
-        <li>✔ Strong understanding of frontend system design basics</li>
-        <li>✔ Consistent GitHub contributions</li>
+      <h3 className="text-3xl font-bold mb-8">Achievements</h3>
+
+      <ul className="space-y-5 text-gray-400 leading-relaxed">
+        <li>
+          ✅ Successfully built and deployed multiple real-world web
+          applications using <span className="text-indigo-400">React.js</span>,
+          <span className="text-indigo-400"> Node.js</span>,
+          <span className="text-indigo-400"> Express.js</span>, and
+          <span className="text-indigo-400"> MongoDB</span>.
+        </li>
+
+        <li>
+          ✅ Completed intensive hands-on training in
+          <span className="text-indigo-400"> Full-Stack Development</span> at
+          NxtWave CCBP 4.0, covering frontend, backend, databases, and system
+          fundamentals.
+        </li>
+
+        <li>
+          ✅ Developed responsive, mobile-first user interfaces using
+          <span className="text-indigo-400"> Tailwind CSS</span> and modern
+          JavaScript (ES6+), ensuring cross-device compatibility.
+        </li>
+
+        <li>
+          ✅ Implemented RESTful APIs, authentication flows, and CRUD operations
+          while following clean code and best development practices.
+        </li>
+
+        <li>
+          ✅ Maintained consistent
+          <span className="text-indigo-400"> GitHub contributions</span>,
+          showcasing project work, version control skills, and continuous
+          learning.
+        </li>
       </ul>
     </section>
   );
@@ -384,7 +449,7 @@ function Skills() {
       <div className="max-w-5xl mx-auto px-6">
         <h3 className="text-3xl font-bold mb-12 text-center">Skills</h3>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
           {skills.map((skill) => (
             <div
               key={skill.name}
@@ -500,7 +565,7 @@ function Projects() {
     <section id="projects" className="py-24 max-w-6xl mx-auto px-6">
       <h3 className="text-3xl font-bold mb-10">Projects</h3>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <ProjectCard
           title="GitHub Popular Repositories"
           desc="A responsive web application that displays trending GitHub repositories based on stars, forks, and issues. Features dynamic filtering, clean UI, and real-time data rendering to help users discover popular open-source projects efficiently."
@@ -577,9 +642,19 @@ function Contact() {
       <div className="max-w-6xl mx-auto px-6">
         <h3 className="text-3xl font-bold mb-12 text-center">Contact Me</h3>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* LEFT SIDE */}
           <div className="space-y-4 text-gray-300">
+            {/* Address */}
+            <a
+              href="https://www.google.com/maps/search/Faridabad,+Haryana,+India"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-gray-300 hover:text-indigo-400"
+            >
+              <FaMapMarkerAlt className="text-lg" />
+              Faridabad, Haryana, India
+            </a>
             {/* Email */}
             <a
               href="https://mail.google.com/mail/?view=cm&fs=1&to=eeeanilkumar1995@gmail.com"
